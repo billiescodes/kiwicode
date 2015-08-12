@@ -4,10 +4,10 @@ import sys
 import math 
 
 def merge(a, b, c, mid):
-#initialize array
-	#-----> this doesn't work! 	#Left=a[:mid], Right=a[mid:] 
 	n1 = (mid+1)-b # midpoint(+1) - low index value 
 	n2 =  c - mid # high- mid index
+	tmp = []
+	print a
 
 	Left = []
 	for c in range(n1):
@@ -17,35 +17,68 @@ def merge(a, b, c, mid):
 	for d in range(n2):
 		Right.append(a[mid+1+d])
 
-	# counters to go through array
+	# counters to go through array; i/j only go through half of array
 	i = b ; j = mid
-	k = 0  
-	#print i, j
+ 
+	print 'enter mergesort', i , j , c
+#	print 'left array, ith elemnt before for loop:  ', Left[i]
 
-	for k in range(b,mid+1):
-	#while i < mid and j < c:   
+	#	for k in range(b,mid+1):
+	while i <= mid and j <= c:   
+		print 'enter while loop '
 		# takes care of comparing L and R
-		if Left[i] < Right[j]:
-			a[k] == Left[i]
-			i=i+1; 
-		else Left[i] > Right[j]:
-			a[k] == Right[j] 
-			j=j+1
-		k=k+1
-		break
+		if Left[i] <= Right[j]:
+			tmp.append(Left[i])
+			i+=1
+			print 'here'
+			break	 
+		else: 	# the <= comparison takes care of itLeft[i] > Right[j]:
+			tmp.append(Right[j]) 
+			j+=1
+			print 'not here'
+
+	print ' does my brave code make it out here? ', i, j 
 	
+#	if len(tmp) < 2:
+#		return a
+
+	tmp += Left[i:]
+	tmp += Right[j:]
+	
+#	if len(tmp) < 2; 
+
+        print 'how about here?'
+
+	for i in range(b,c):
+		a[i] = tmp[i]
+		print ' here?' 
+
+	print  'end of code', tmp[0]
+	return tmp	
 	#if there are trailing elements e.g. (1 2 3 5) merge with (4 6 7 8)
 	# DO NOT re-initialize i or k at this point 
-	while i<len(Left):
-		a[k] = Left[i]
-		i = i+1
-		k = k+1 
-		
-	while j<len(Right):
-		a[k] = Right[j]
-		j = j+1
-		k = k+1
+'''     
+ 	print 'k is ', k
 	
+	print 'i is ', i 
+	print 'j is ', j
+'''
+	### if not all elements of Left[] were used
+#	while i<len(Left):
+#		tmp[k] = Left[i]
+#		i = i+1
+#		k = k+1 
+#	break
+	### if not all elements of Right[] were used
+#	while j<len(Right):
+#		tmp[k] = Right[j]
+#		j = j+1
+#		k = k+1
+#	break
+
+#	for i in range(b,c):
+#		a[i] = tmp[i]
+
 '''         #put the two arrays together
 	for i in k
 		a[i] = D[i]	
@@ -55,18 +88,19 @@ def mergesort(a, b, c):
   # recursively call on mergesort until down to two elements
 	mid =int(math.floor((c+b)/2))
 
-	#print  'low= ', b, 'mid ', mid, 'high= ', c 
+	if mid >1:
+		print  'low= ', b, 'mid ', mid, 'high= ', c 
 	while b < c:
-		mergesort(a, b, mid)
-		mergesort(a, mid+1,c)
-		merge(a, b, c, mid)	
+		mergesort(a, b, mid) # sort left side
+		mergesort(a, mid+1,c)	# sort right side
+		merge(a, b, c, mid)	# merge
 
 def main():
 	print 'something' 
 	if len(sys.argv)>= 2:
 		A = sys.argv[1]
 	else:
-		A = [ 1, 8, 7, 5, 3, 4, 2]
+		A = [ 2, 8, 7, 5, 3, 4, 1]
 		
 	low = 0
 	high = len(A) -1
