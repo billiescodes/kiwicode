@@ -3,111 +3,111 @@
 import sys
 import math 
 
-def merge(a, b, c, mid):
+def merge(A, b, c, mid):
 	n1 = (mid+1)-b # midpoint(+1) - low index value 
-	n2 =  c - mid # high- mid index
+	n2 =  c+1 - mid # high- mid index
 	tmp = []
-	print a
+	print '1: ', A
+
+	##if b == 0:
+	##	sys.exit()
+	##	return 
+	#break
 
 	Left = []
-	for c in range(n1):
-		Left.append(a[b+c]) # loops starting w/ low(=b) index in loop
+	for p in range(n1):
+		Left.append(A[b+p]) # loops starting w/ low(=b) index in loop
 	
 	Right = []
-	for d in range(n2):
-		Right.append(a[mid+1+d])
+	for q in range(n2):
+		Right.append(A[mid+1+q])
+	print Right
+	print Left
+	
+	print '7: ', tmp, len(Left), len(Right)
 
 	# counters to go through array; i/j only go through half of array
-	i = b ; j = mid
+	i = 0 ; j = 0
  
-	print 'enter mergesort', i , j , c
+	print '2: enter mergesort', i , j , c
 #	print 'left array, ith elemnt before for loop:  ', Left[i]
 
-	#	for k in range(b,mid+1):
 	while i <= mid and j <= c:   
-		print 'enter while loop '
+		print '3: enter while loop ', i, j, mid, c
 		# takes care of comparing L and R
 		if Left[i] <= Right[j]:
 			tmp.append(Left[i])
 			i+=1
-			print 'here'
-			break	 
-		else: 	# the <= comparison takes care of itLeft[i] > Right[j]:
+			print '4: here', tmp, i
+				 
+		elif Left[i] > Right[j]: 	# the <= comparison takes care of itLeft[i] > Right[j]:
 			tmp.append(Right[j]) 
 			j+=1
-			print 'not here'
-
-	print ' does my brave code make it out here? ', i, j 
+			print '5: not here', tmp, j 
+	print '6: does my brave code make it out here? ', i, j 
 	
 #	if len(tmp) < 2:
 #		return a
 
-	tmp += Left[i:]
-	tmp += Right[j:]
+	print '7: ', tmp, len(Left), len(Right)
+	
+	if i <= mid:
+		tmp += Left[i:]
+	if j <= c:
+		tmp += Right[j:]
 	
 #	if len(tmp) < 2; 
 
-        print 'how about here?'
+        print 'tmp is now', tmp
+	z = 0
+	while b <=c:
+		A[b] = tmp[z]
+		print '8:  here?'
+		b += 1
+		z +=1
+		if c < 7:
+			print "LAST"
+		break 
+	print  '9: end of code, tmp, A:', tmp, A
+	
+ 
+    #break
 
-	for i in range(b,c):
-		a[i] = tmp[i]
-		print ' here?' 
-
-	print  'end of code', tmp[0]
-	return tmp	
+	#return tmp	
 	#if there are trailing elements e.g. (1 2 3 5) merge with (4 6 7 8)
 	# DO NOT re-initialize i or k at this point 
-'''     
- 	print 'k is ', k
 	
-	print 'i is ', i 
-	print 'j is ', j
-'''
-	### if not all elements of Left[] were used
-#	while i<len(Left):
-#		tmp[k] = Left[i]
-#		i = i+1
-#		k = k+1 
-#	break
-	### if not all elements of Right[] were used
-#	while j<len(Right):
-#		tmp[k] = Right[j]
-#		j = j+1
-#		k = k+1
-#	break
-
-#	for i in range(b,c):
-#		a[i] = tmp[i]
-
-'''         #put the two arrays together
-	for i in k
-		a[i] = D[i]	
-'''
-	
-def mergesort(a, b, c):
+def mergesort(A, b, c):
   # recursively call on mergesort until down to two elements
-	mid =int(math.floor((c+b)/2))
+#	mid =int(math.floor((c+b)/2))
 
-	if mid >1:
-		print  'low= ', b, 'mid ', mid, 'high= ', c 
-	while b < c:
-		mergesort(a, b, mid) # sort left side
-		mergesort(a, mid+1,c)	# sort right side
-		merge(a, b, c, mid)	# merge
+#	if mid >1:
+		#print  'low= ', b, 'mid ', mid, 'high= ', c 
+	if b < c:
+		mid =int(math.floor((c+b)/2))
+		print  'low= ', b, 'mid ', mid, 'high= ', c
+		
+		print 'call to mergesort', A, b, mid, c
+		mergesort(A, b, mid) # sort left side
+		print A, b, mid, c
+		mergesort(A, mid+1,c)	# sort right side
+		print A, b, mid, c
+		merge(A, b, c, mid)	# merge
 
 def main():
 	print 'something' 
 	if len(sys.argv)>= 2:
 		A = sys.argv[1]
 	else:
-		A = [ 2, 8, 7, 5, 3, 4, 1]
+		A = [ 2, 6, 5, 3, 4, 1]
 		
 	low = 0
-	high = len(A) -1
+	high = len(A)
 
 	print A
 	print "here is: low, high, index", low, high
-	mergesort(A, low, high)
+	mergesort(A, low, high-1) 
+		 # high-1, because of array indexing start at 0 I think
 
 	print A
 
