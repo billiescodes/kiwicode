@@ -28,12 +28,24 @@ def match_ends(words):
 
   # for <length of string> loop through
   for var in words:
+    length = len(var)
+    #print var, ' ',len(var)
+    
+	# how to loop over all the letters
+    # i=0
+    # while i < len(var):      
+    #  print var[i]  
+    #  i +=1
+
+# print var[len(var)]
     if len(var) >= 2:
-      if var[0] ==  
+      if var[0] == var[len(var)-1]:
+        counter += 1; 
+
   # if <length of string> is > 2 
   # AND if string(0)== string(last) add counter 
 
-  return
+  return counter
 
 
 # B. front_x
