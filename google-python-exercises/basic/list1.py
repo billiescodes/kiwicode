@@ -31,7 +31,7 @@ def match_ends(words):
     length = len(var)
     #print var, ' ',len(var)
     
-	# how to loop over all the letters
+	## how to loop over all the letters
     # i=0
     # while i < len(var):      
     #  print var[i]  
@@ -56,7 +56,10 @@ def match_ends(words):
 # Hint: this can be done by making 2 lists and sorting each of them
 # before combining them.
 def front_x(words):
-  # +++your code here+++
+  # +++ pseudocode +++
+  # 1. loop through list 
+  # 2. if var[0] == x group first
+  # 3. 
   return
 
 
