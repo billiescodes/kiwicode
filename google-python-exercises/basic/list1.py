@@ -57,9 +57,29 @@ def match_ends(words):
 # before combining them.
 def front_x(words):
   # +++ pseudocode +++
-  # 1. loop through list 
-  # 2. if var[0] == x group first
-  # 3. 
+  # 1. loop through list, start nulist1, nulist 2
+  # 2. if var[0] == x group first, by puttin into nulist1
+	## use instead var.startswith(x) method!	
+  # 3. to sort alphabetically place into nulist2
+	## 
+
+  tmp1 = []		# sort words that begin with x here
+  tmp2 = []		# sort alphabetic words here
+  
+  for var in words:
+  
+    tmp2 = var.sort()
+    print 'tmp2 is: ', tmp2
+
+
+
+#    if var[i][0] < var[i+1][0]:   # a < b returns True for alphabetic strings
+	  #put var[0][0] into nulist
+#      tmp1.append(var[i])  # append to the temporary list 
+#      counter += 1 
+#    else:
+#      tmp1.append(var[i+1])
+ #     counter += 1   
   return
 
 
