@@ -62,14 +62,35 @@ def front_x(words):
 	## use instead var.startswith(x) method!	
   # 3. to sort alphabetically place into nulist2
 	## 
+# ['bbb', 'ccc', 'axx', 'xzz', 'xaa']
 
   tmp1 = []		# sort words that begin with x here
   tmp2 = []		# sort alphabetic words here
-  
-  for var in words:
-  
-    tmp2 = var.sort()
-    print 'tmp2 is: ', tmp2
+ 
+  length = len(words)
+  print 'list length ', length 
+  i= 0 
+
+  while i < length -1:
+    word = len(words[i]
+    
+    while j < word:
+    
+      print 'list here: i is  ', i,  words[i], words[i][0]
+   
+      if words[i][0] < words[i+1][0]:
+        
+        temp = words[i]
+        print words[i]
+        i+=1
+      else: 
+        tmp2.append(words[i+1])
+      print words[i+1]
+      i+=1
+
+
+  print 'tmp2 is: ', tmp2
+
 
 
 
