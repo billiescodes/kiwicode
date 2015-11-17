@@ -67,41 +67,19 @@ def front_x(words):
   tmp1 = []		# sort words that begin with x here
   tmp2 = []		# sort alphabetic words here
  
-  length = len(words)
-  print 'list length ', length 
-  i= 0 
-
-  while i < length -1:
-    word = len(words[i]
+  for var in words:
     
-    while j < word:
-    
-      print 'list here: i is  ', i,  words[i], words[i][0]
-   
-      if words[i][0] < words[i+1][0]:
-        
-        temp = words[i]
-        print words[i]
-        i+=1
-      else: 
-        tmp2.append(words[i+1])
-      print words[i+1]
-      i+=1
-
-
-  print 'tmp2 is: ', tmp2
-
-
-
-
-#    if var[i][0] < var[i+1][0]:   # a < b returns True for alphabetic strings
-	  #put var[0][0] into nulist
-#      tmp1.append(var[i])  # append to the temporary list 
-#      counter += 1 
-#    else:
-#      tmp1.append(var[i+1])
- #     counter += 1   
-  return
+    # check first letter of var in words if it's x
+    # here can also use method var.startswith('x') 
+    if var[0] == 'x': 
+      tmp1.append(var)
+     #DEBUG print 'this is it', var 
+    else:
+      tmp2.append(var)
+    #DEBUG print sorted(tmp1), 'pause ',  sorted(tmp2)
+  
+  total =  sorted(tmp1) + sorted(tmp2)
+  return total
 
 
 
@@ -129,9 +107,9 @@ def test(got, expected):
 # Calls the above functions with interesting inputs.
 def main():
   print 'match_ends'
-  test(match_ends(['aba', 'xyz', 'aa', 'x', 'bbb']), 3)
-  test(match_ends(['', 'x', 'xy', 'xyx', 'xx']), 2)
-  test(match_ends(['aaa', 'be', 'abc', 'hello']), 1)
+ # test(match_ends(['aba', 'xyz', 'aa', 'x', 'bbb']), 3)
+ # test(match_ends(['', 'x', 'xy', 'xyx', 'xx']), 2)
+ # test(match_ends(['aaa', 'be', 'abc', 'hello']), 1)
 
   print
   print 'front_x'
