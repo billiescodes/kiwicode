@@ -66,7 +66,10 @@ def fix_start(s):
 # Assume a and b are length 2 or more.
 def mix_up(a, b):
   # +++your code here+++
-  mystring = [a, b] 
+  a_swap = b[0:2] + a[2:]
+  b_swap = a[0:2] + b[2:]
+ 
+  mystring = [a_swap, b_swap] 
   cat = ' '.join(mystring)
   return cat
 
