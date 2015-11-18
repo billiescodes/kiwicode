@@ -41,7 +41,11 @@ def not_bad(s):
   index_not = s.find('not')
   index_bad = s.find('bad') 
 
-  if index_bad > index_not:			# if 'bad' follows 'not'
+	# make sure that neither of the indeces is -1, 
+    # eg. if the string is 'adaba', it will find 'bad' starting at -1
+ 
+  if index_bad > index_not and index_bad != -1 and index_not -1:			
+		# if 'bad' follows 'not'
     sub = s[index_not : index_bad+3] # the whole string ends after index_bad+3
     print sub
     new_string = s.replace(sub,'good')
