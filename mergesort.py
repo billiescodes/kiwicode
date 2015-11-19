@@ -1,18 +1,15 @@
 #!/usr/bin/python -tt
 # Copyright billiescodes 2015
-# mergesort
+# mergesort: a very basic, simple version of sorting an array by
+# merging smaller, sorted sections of the array
 
 import sys
 import math 
 
 def merge(A, b, c, mid):
-	n1 = (mid+1)-b # midpoint(+1) - low index value 
-	n2 =  c+1 - mid # high- mid index
+	n1 = (mid+1)-b	 # marks lower limit   
+	n2 = c - mid	 # marks upper limit
 	tmp = []
-	print '****************##### START  ######: '
-	print 'b, c, mid', b, c, mid
-	print "1: ", A, 'n1:', n1, ' n2:', n2
-
 
 	Left = []
 	for p in range(n1):
@@ -21,99 +18,59 @@ def merge(A, b, c, mid):
 	Right = []
 	for q in range(n2):
 		Right.append(A[mid+1+q])
-	print 'Right:(counter =j) ', Right
-	print 'Left:(counter=i) ', Left
-	
-	#print '7: ', tmp, len(Left), len(Right)
 
-	# counters to go through array; i/j only go through half of array
+	# counters to go through arrays Left(i) and Right(j) 
 	i = 0 ; j = 0
  
-	print '2: enter mergesort', i , j , c
-#	print 'left array, ith elemnt before for loop:  ', Left[i]
 
-	### THIS IS THE PROBLEM: i/j run over the temp arrays L/R and
-	### mid and c are definite variables of total A
-	while i <= mid and j <= c:   
-		print '3: enter while loop ', 'i=',i,' j=', j, ' mid=',  mid, ' c=', c
-		# takes care of comparing L and R
-		print "Left[i] ", Left[i], " and Right[j] ", Right[j]
+	while i < len(Left) and j < len(Right):   
+		
 		if Left[i] <= Right[j]:
 			tmp.append(Left[i])
 			i+=1
-			print '4: here', tmp, i
-			if i == mid:
-				break; 
-		elif Left[i] > Right[j]: 	# the <= comparison takes care of itLeft[i] > Right[j]:
+		elif Left[i] > Right[j]:
 			tmp.append(Right[j]) 
 			j+=1
-			#print '5: not here', tmp, j 
-			if j == c:
-				break;
-	#print '6: does my brave code make it out here? ', i, j 
-	
-#	if len(tmp) < 2:
-#		return a
 
-	print '7: ', tmp, len(Left), len(Right)
-	
+	# add the trailing elements of each half i.e. of Left/Right
 	if i <= mid:
 		tmp += Left[i:]
 	if j <= c:
 		tmp += Right[j:]
 	
-#	if len(tmp) < 2; 
-
-        print 'tmp is now', tmp
+	# copy tmp back into A, the original array
+	# cruicial part, whatever is sorted will now be placed at the beginning of array A
+	# whenever A is called again recursively 
 	z = 0
 	while b <=c:
 		A[b] = tmp[z]
-		print '8:  here?'
 		b += 1
 		z +=1
-		if c < 7:
-			print "LAST"
-		break 
-	print  '9: end of code, tmp, A:', tmp, A
-	
- 
-    #break
-
-	#return tmp	
-	#if there are trailing elements e.g. (1 2 3 5) merge with (4 6 7 8)
-	# DO NOT re-initialize i or k at this point 
 	
 def mergesort(A, b, c):
   # recursively call on mergesort until down to two elements
-#	mid =int(math.floor((c+b)/2))
-
-#	if mid >1:
-		#print  'low= ', b, 'mid ', mid, 'high= ', c 
+  
 	if b < c:
 		mid =int(math.floor((c+b)/2))
-		#DEBUG print  'low= ', b, 'mid ', mid, 'high= ', c
 		
 		#print 'call to mergesort', A, b, mid, c
-		mergesort(A, b, mid) # sort left side
-		#print 'first half, ** Left** ',  A, b, mid, c
-		mergesort(A, mid+1,c)	# sort right side
-		#print 'second half, ** Right **', A, b, mid, c
-		merge(A, b, c, mid)	# merge
+		mergesort(A, b, mid)			# sort left side of array
+		mergesort(A, mid+1,c)			# sort right side of array
+		merge(A, b, c, mid)				# merge
 
 def main():
 	if len(sys.argv)>= 2:
 		A = sys.argv[1]
 	else:
-		A = [ 2, 6, 5, 3, 4, 1]
-		
+		#A = [ 2, 6, 5, 3, 4, 1]
+		A = [ 12, 6, 5, 3, 4, 1,7,9,8,13,11,17]
 	low = 0
 	high = len(A)
 
 	print A
-	print "#### START: here is: low, high, index", low, high
 	mergesort(A, low, high-1) 
-		 # high-1, because of array indexing start at 0 I think
-
+	
+	print "mergesort over; here is the sorted array: "
 	print A
 
  #now call the function main()
