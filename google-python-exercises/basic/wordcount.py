@@ -47,9 +47,79 @@ import sys
 
 def print_words(filename):
 
+# start an empty dictionary
+  #sys.exit(0)
+	dict = {}
+
+# MASTERPLAN
+# store word(i) as key and counter(i) into count1, as value
+# go through text and perform the above for i through n words needed
+# print 
+	print "file is", filename.upper()
+#open file
+	f = open(filename, 'r') 
+  #print every line
+	count = 0
+	size = 0
+	for line in f:
+		 
+    # strategy: search for pattern in each line not sure how yet
+	#	for key in dict:
+	#		print "key is ", key
+
+		if count == 222:
+			print count, "*********line 222 is *********  ", size, line
+
+      ### one way to loop through the words: get line and split along all whitespace
+		## that's what no argument does
+			nuline = line.split(' ')
+			templen = len(nuline)
+			nuline2 = [ ] 	
+			a = 0
+
+			#for a in range(2):
+			for a in range(templen): 
+				#nuline2[a] =
+				#use append to add to nuline2, otherwise out of bound, i.e. above doesn't work
+			 
+				nuline2.append(nuline[a].translate(None, '`\',.:;'))
+				print nuline2[a]
+	
+		## split along all commas
+      #nuline2 = line.split(',')
+		#	print nuline, "the split line and "
+	#		print len(nuline), nuline[0],nuline[0].lstrip()
+#			print " ***** nuline2 is *****" 
+			
+			#### I now have a way to break up all the words in every line of text
+			print nuline2
+			### now store in dictionary
+
+			for a in range(templen):
+				print "yo"	
+				# if dictionary empty, just add a key
+				if not dict: 
+					dict[nuline2[a]] = 1
+					print dict.items()
+
+				for key in dict:
+					print "hola"  
+					if nuline2[a] == key: 
+							# word is in dictionary, add another instance to counter
+						dict[key] += 1
+					else:
+						# word is not in dictionary, so add as key dictionary
+						dict[nuline2[a]] = 1
+						print "here"
+
+		count+=1
+		#print dict.keys() 
+					
+#f.close()
 
 
-def print_top(filename):
+#def print_top(filename):
+
 
 
 ###
@@ -65,6 +135,7 @@ def main():
   option = sys.argv[1]
   filename = sys.argv[2]
   if option == '--count':
+    print "filename is: ",  filename
     print_words(filename)
   elif option == '--topcount':
     print_top(filename)
