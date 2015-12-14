@@ -110,10 +110,51 @@ def print_words(filename):
 		print word, words[word]
 
 
-#def print_top(filename):
+def sortkey(tup):
+	"""Returns the count from a dict word/count tuple  -- used for custom sort."""
+	return tup[1]
+ 
+
+def print_top(filename):
+	'''prints top most common
+	X		1. sort according to size 
+			2. retrieve the values in dictionary
+			3. '''
+	# wanna do something like list1.sort(key=int) I'm sorting by integers
+	
+	#retrieve dictionary
+	words = words_dict(filename)
+	#return the list of ordered values, in reverse order
+	ordered_vals = sorted(words.values(), reverse=True)
+
+	print "length of ordered_vals ", len(ordered_vals)	
+# NOPE! for i in range(5): print words.items()
+
+	#each item is a tuple with elements (word, count) 
+	#test_z = sortkey(words)
 
 
+#	for i in range(10): print sortkey[1]
+#### in sorted-function, the key is going to apply  the function to all the items
+	# from words.values, so the dictionary is the argument passed to sortkey()
+	#  it's the equivalent of sortkey(words)
+	# the funciton returns column [1] of tuple, which is the 
+	items = sorted(words.items(), key=sortkey, reverse=True)	
 
+	## or use lambda!!!!
+	### That's two ways of doing it 
+
+	items2 = sorted(words.items(), key=lambda tup:tup[1], reverse=True) 
+
+	print " items: word -- count"
+	#print the first 20 items
+	for item in items2[:20]:
+		print item[0], " ",  item[1]
+		
+
+	#for i in range(10):	
+#		print ordered_vals[i]
+#		print words[ordered_vals[i]]
 ###
 
 # This basic command line argument parsing code is provided and

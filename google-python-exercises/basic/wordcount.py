@@ -29,7 +29,7 @@ so the most common word is first, then the next most common, and so on.
 Use str.split() (no arguments) to split on all whitespace.
 
 Workflow: don't build the whole program at once. Get it to an intermediate
-milestone and print your data structure and sys.exit(0).
+milestone and print your data strucuture and sys.exit(0).
 When that's working, try for the next milestone.
 
 Optional: define a helper function to avoid code duplication inside
@@ -45,84 +45,71 @@ import sys
 # and builds and returns a word/count dict for it.
 # Then print_words() and print_top() can just call the utility function.
 
-def print_words(filename):
-
+def words_dict(filename):
+	"""Creates a dictionary for all words, with counts """
 # start an empty dictionary
-  #sys.exit(0)
-	dict = {}
+	text = {}
 
-# MASTERPLAN
-# store word(i) as key and counter(i) into count1, as value
-# go through text and perform the above for i through n words needed
-# print 
 	print "file is", filename.upper()
-#open file
-	f = open(filename, 'r') 
-  #print every line
-	count = 0
+	input_file = open(filename, 'r')   # #open file 
 	size = 0
-	for line in f:
+	for line in input_file:
 		 
-    # strategy: search for pattern in each line not sure how yet
-	#	for key in dict:
-	#		print "key is ", key
+    ### loop through the words: get line and split along all whitespace
+		tmp_words = line.split()
+		words = [ ] 	
+		a = 0
 
-		if count == 222:
-			print count, "*********line 222 is *********  ", size, line
-
-      ### one way to loop through the words: get line and split along all whitespace
-		## that's what no argument does
-			nuline = line.split(' ')
-			templen = len(nuline)
-			nuline2 = [ ] 	
-			a = 0
-
-			#for a in range(2):
-			for a in range(templen): 
-				#nuline2[a] =
-				#use append to add to nuline2, otherwise out of bound, i.e. above doesn't work
-			 
-				nuline2.append(nuline[a].translate(None, '`\',.:;'))
-				print nuline2[a]
-	
-		## split along all commas
-      #nuline2 = line.split(',')
-		#	print nuline, "the split line and "
-	#		print len(nuline), nuline[0],nuline[0].lstrip()
-#			print " ***** nuline2 is *****" 
+		for a in range(len(tmp_words)): 
+			# remove non-letter characters from split words
+			words.append(tmp_words[a].translate(None, '-(")!?`\',.:;\n'))
+			words[a] = words[a].lower()			# only consider lower-case
 			
-			#### I now have a way to break up all the words in every line of text
-			print nuline2
 			### now store in dictionary
-
-			for a in range(templen):
-				print "yo"	
-				# if dictionary empty, just add a key
-				if not dict: 
-					dict[nuline2[a]] = 1
-					print dict.items()
-
-				for key in dict:
-					print "hola"  
-					if nuline2[a] == key: 
+			# ~~special case~~ if dictionary EMPTY, just add a key
+			if not text: 
+				text[words[a]] = 1
+			if words[a] in text.keys():
 							# word is in dictionary, add another instance to counter
-						dict[key] += 1
-					else:
-						# word is not in dictionary, so add as key dictionary
-						dict[nuline2[a]] = 1
-						print "here"
+				text[words[a]] += 1
+			else:
+						# word is not in dictionary, so add as key to dictionary
+				text[words[a]] = 1
+			
+	input_file.close() # close the file, return dictionary
+	return text 
 
-		count+=1
-		#print dict.keys() 
-					
-#f.close()
+def print_words(filename):
+	words = words_dict(filename)
+	# now sort the keys in dictionary: 
+	words_ordered = sorted(words.keys())
+	#### loop through all words in words_ordered
+	for word in words_ordered:
+		print word, words[word]
 
 
-#def print_top(filename):
+def sortkey(tup):
+	"""Returns the count from a dict word/count tuple  -- used for custom sort."""
+	return tup[1]
+ 
 
+def print_top(filename):
+	#retrieve dictionary
+	words = words_dict(filename)
 
+	# the funciton returns column [1] of tuple --> sorts according to count 
+	items = sorted(words.items(), key=sortkey, reverse=True)	
 
-###
+	## or use lambda function structure
+	### That's two ways of doing it 
+	items2 = sorted(words.items(), key=lambda tup:tup[1], reverse=True) 
+
+	print " items: word -- count"
+	#print the first 20 items
+	for item in items2[:20]:					# this is the lambda version
+		print item[0], " ",  item[1]
+		
+
 
 # This basic command line argument parsing code is provided and
 # calls the print_words() and print_top() functions which you must define.
@@ -135,8 +122,8 @@ def main():
   option = sys.argv[1]
   filename = sys.argv[2]
   if option == '--count':
-    print "filename is: ",  filename
-    print_words(filename)
+		print "filename is: ",  filename
+		print_words(filename)
   elif option == '--topcount':
     print_top(filename)
   else:
