@@ -47,6 +47,7 @@ def extract_names(filename):
 	# open the file
 	input_file = open(filename, 'r')
 	count = 0
+	names = [] 
 	
 	for line in input_file:
 		#year = re.search(r'(Popularity in)\s+(\d\d\d\d)', line)
@@ -54,10 +55,15 @@ def extract_names(filename):
 			# note: do not need : * or + between parantheses to connect brackets ()
 			# unless characters might repeat, like several spaces, then (\s*)m
 
-
 		if year : 
 			print year.group()
 			print " and the year is: ", year.group(3)
+			names.append(year.group(3))
+		# extract both male and female names
+		names_by_rank = re.findall(r'(<td>)(\w+)(</td><td>)(\w+)(</td><td>)(\w+)', line)
+
+		for name in names_by_rank:
+			print name[1], " ", name[3], " ", name[5]
 	
 	#match = re.search(r'(\s\s\s)(\d\d\d\d)', line)
 	#if match : print match.group()
