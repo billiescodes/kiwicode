@@ -46,11 +46,14 @@ def extract_names(filename):
 	## as year consider 4 digits in a row	
 	# open the file
 	input_file = open(filename, 'r')
-	count = 0
-	names = [] 
+	count = 1
+	# start a dictionary 
+	names = {}
 	
 	for line in input_file:
-		#year = re.search(r'(Popularity in)\s+(\d\d\d\d)', line)
+	
+	## Extract the year and print it 
+		
 		year = re.search(r'(Popularity in)(\s)(\d\d\d\d)', line)
 			# note: do not need : * or + between parantheses to connect brackets ()
 			# unless characters might repeat, like several spaces, then (\s*)m
@@ -58,18 +61,35 @@ def extract_names(filename):
 		if year : 
 			print year.group()
 			print " and the year is: ", year.group(3)
-			names.append(year.group(3))
-		# extract both male and female names
+			#names[0] = year.group(3)
+			#	names.append(year.group(3))
+	##  extract both male and female names
+	## must find all instances of the names, and the ranks 		
+		
+		# names_by_rank is a match object 
 		names_by_rank = re.findall(r'(<td>)(\w+)(</td><td>)(\w+)(</td><td>)(\w+)', line)
 
 		for name in names_by_rank:
-			print name[1], " ", name[3], " ", name[5]
+			# prints to screen:
+			#print name[1], " ", name[3], " ", name[5]
+			# name[1] = rank , name[3]= boys, name[5] =  girls 
+
 	
-	#match = re.search(r'(\s\s\s)(\d\d\d\d)', line)
-	#if match : print match.group()
+			# -Get the names data into a dict and print it
+				# get every name, store as key and the rank as its value
+			## names[key]  = value/rank
+				# --> iterate through name[3] and name[5] and store name[1] as its value
+			
+				names[count] = name[3] + "     " + name[5]
+			count +=1 
+	
+	# not in line-for-loop
+	## so I've stored them in Dict, but technically male and female are in the same
+	## cell --> this could be a problem 
+	for item in names:
+		print item, " ", names[item]
+
 	print " search year  over"
-	#Find('Michael', input_file) 
-#	mymatch = re.findall(r'..<td>..',input_file)
 
 #	for match in mymatch:
 #		print match
