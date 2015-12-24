@@ -33,7 +33,7 @@ Suggested milestones for incremental development:
  -Build the [year, 'name rank', ... ] list and print it
  -Fix main() to use the extract_names list
 """
-
+ 
 """
 Given a file name for baby.html, returns a list starting with the year string
  followed by the name-rank strings in alphabetical order.
@@ -43,7 +43,6 @@ Given a file name for baby.html, returns a list starting with the year string
 
 def extract_names(filename):
 ## first extract the year of the file	
-	## as year consider 4 digits in a row	
 	# open the file
 	input_file = open(filename, 'r')
 	count = 1
@@ -51,7 +50,6 @@ def extract_names(filename):
 	names = {}
 	
 	for line in input_file:
-	
 	## Extract the year and print it 
 		
 		year = re.search(r'(Popularity in)(\s)(\d\d\d\d)', line)
@@ -61,47 +59,46 @@ def extract_names(filename):
 		if year : 
 			print year.group()
 			print " and the year is: ", year.group(3)
-			#names[0] = year.group(3)
-			#	names.append(year.group(3))
+			the_year = year.group(3)
 	##  extract both male and female names
-	## must find all instances of the names, and the ranks 		
-		
-		# names_by_rank is a match object 
-		names_by_rank = re.findall(r'(<td>)(\w+)(</td><td>)(\w+)(</td><td>)(\w+)', line)
+		names_by_rank = re.findall(r'<td>(\w+)</td><td>(\w+)</td><td>(\w+)', line)
 
 		for name in names_by_rank:
-			# prints to screen:
-			#print name[1], " ", name[3], " ", name[5]
-			# name[1] = rank , name[3]= boys, name[5] =  girls 
-
-	
-			# -Get the names data into a dict and print it
+			#unpack the tuple
+			(rank, boys, girls) = name
+			# if boys name is not in dictionary:
+			if boys not in names:
+				names[boys] = rank
+			if girls not in names:	
+				names[girls] = rank
 				# get every name, store as key and the rank as its value
-			## names[key]  = value/rank
-				# --> iterate through name[3] and name[5] and store name[1] as its value
 			
-				names[count] = name[3] + "     " + name[5]
-			count +=1 
-	
-	# not in line-for-loop
-	## so I've stored them in Dict, but technically male and female are in the same
-	## cell --> this could be a problem 
-	for item in names:
-		print item, " ", names[item]
-
 	print " search year  over"
+		#return 2 things: all the names, and the current year!!
+	return names,the_year
 
-#	for match in mymatch:
-#		print match
+def sort_names(text):
+	# this will print the names from the dictionary
+	(names,year) = extract_names(text)			# make call to extract_names: names refers to dict
+	names_ordered = sorted(names.keys())
+	final_list = []
+	final_list.append(year)
+	print "the final_list is" , final_list
+	for name in names_ordered:
+	#	print name, names[name]
+		# create a single string of name + rank and place into list
+		final_list.append(name + " " + names[name])
 
-	return
+	print "fist 20 names of the list " 
+	for var in final_list[:20]:
+		print var
+
 
 
 def Find(pat, text):
 	match =  re.search(pat, text)
 	if match: print match.group()
 	#else:	print " match not found" 
-
 
 
 
@@ -131,6 +128,7 @@ def main():
 			# if flag --summaryfile not given, file is first in list args
 			# check if any other flags possible
 	extract_names(filename)
+	sort_names(filename)
 
   # For each filename, get the names, then either print the text output
   # or write it to a summary file
