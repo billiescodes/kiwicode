@@ -60,6 +60,7 @@ def extract_names(filename):
 		if year : 
 			print year.group()
 			print " and the year is: ", year.group(3)
+			the_year = year.group(3)
 			#names[0] = year.group(3)
 			#	names.append(year.group(3))
 	##  extract both male and female names
@@ -84,25 +85,25 @@ def extract_names(filename):
 				# get every name, store as key and the rank as its value
 			## names[key]  = value/rank
 			
-	# not in line-for-loop
-	## so I've stored them in Dict, but technically male and female are in the same
-	## cell --> this could be a problem 
-	#for item in names:
-		#print item, " ", names[item]
-
 	print " search year  over"
+		#return 2 things: all the names, and the current year!!
+	return names,the_year
 
-#	for match in mymatch:
-#		print match
-
-	return names
-
-def print_names(text):
+def sort_names(text):
 	# this will print the names from the dictionary
-	names = extract_names(text)			# make call to extract_names: names refers to dict
+	(names,year) = extract_names(text)			# make call to extract_names: names refers to dict
 	names_ordered = sorted(names.keys())
+	final_list = []
+	final_list.append(year)
+	print "the final_list is" , final_list
 	for name in names_ordered:
-		print name, names[name]
+	#	print name, names[name]
+		# create a single string of name + rank and place into list
+		final_list.append(name + " " + names[name])
+	print "fist 20 names of the list " 
+	for var in final_list[:20]:
+		print var
+
 		# I now have all the names printed in alphabetic order
 		# from dictionary 
 
@@ -140,7 +141,7 @@ def main():
 			# if flag --summaryfile not given, file is first in list args
 			# check if any other flags possible
 	extract_names(filename)
-	print_names(filename)
+	sort_names(filename)
 
   # For each filename, get the names, then either print the text output
   # or write it to a summary file
