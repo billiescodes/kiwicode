@@ -33,7 +33,7 @@ Suggested milestones for incremental development:
  -Build the [year, 'name rank', ... ] list and print it
  -Fix main() to use the extract_names list
 """
-
+ 
 """
 Given a file name for baby.html, returns a list starting with the year string
  followed by the name-rank strings in alphabetical order.
@@ -73,37 +73,44 @@ def extract_names(filename):
 			#print name[0], " ", name1], " ", name[2]
 			# name[0] = rank , name[1]= boys, name[2] =  girls 
 
-			# assign a pointer to each position in tuple 
-			(rank, boys, girls) = names_by_rank
-
-
+			#unpack the tuple
+			(rank, boys, girls) = name
+			# if boys name is not in dictionary:
+			if boys not in names:
+				names[boys] = rank
+			if girls not in names:	
+				names[girls] = rank
 			# -Get the names data into a dict and print it
 				# get every name, store as key and the rank as its value
 			## names[key]  = value/rank
-				# --> iterate through name[3] and name[5] and store name[1] as its value
 			
-			names[count] = name[2] #+ "     " + name[2]
-			count +=1 
-	
 	# not in line-for-loop
 	## so I've stored them in Dict, but technically male and female are in the same
 	## cell --> this could be a problem 
-	for item in names:
-		print item, " ", names[item]
+	#for item in names:
+		#print item, " ", names[item]
 
 	print " search year  over"
 
 #	for match in mymatch:
 #		print match
 
-	return
+	return names
+
+def print_names(text):
+	# this will print the names from the dictionary
+	names = extract_names(text)			# make call to extract_names: names refers to dict
+	names_ordered = sorted(names.keys())
+	for name in names_ordered:
+		print name, names[name]
+		# I now have all the names printed in alphabetic order
+		# from dictionary 
 
 
 def Find(pat, text):
 	match =  re.search(pat, text)
 	if match: print match.group()
 	#else:	print " match not found" 
-
 
 
 
@@ -133,6 +140,7 @@ def main():
 			# if flag --summaryfile not given, file is first in list args
 			# check if any other flags possible
 	extract_names(filename)
+	print_names(filename)
 
   # For each filename, get the names, then either print the text output
   # or write it to a summary file
