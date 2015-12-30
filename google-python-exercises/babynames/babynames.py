@@ -58,7 +58,7 @@ def extract_names(filename):
 
 		if year : 
 			print year.group()
-			print " and the year is: ", year.group(3)
+			#print " and the year is: ", year.group(3)
 			the_year = year.group(3)
 	##  extract both male and female names
 		names_by_rank = re.findall(r'<td>(\w+)</td><td>(\w+)</td><td>(\w+)', line)
@@ -73,7 +73,6 @@ def extract_names(filename):
 				names[girls] = rank
 				# get every name, store as key and the rank as its value
 			
-	print " search year  over"
 		#return 2 things: all the names, and the current year!!
 	return names,the_year
 
@@ -83,13 +82,13 @@ def sort_names(text):
 	names_ordered = sorted(names.keys())
 	final_list = []
 	final_list.append(year)
-	print "the final_list is" , final_list
+	print " ~~ the final_list is" , final_list, " ~~"
 	for name in names_ordered:
 	#	print name, names[name]
 		# create a single string of name + rank and place into list
 		final_list.append(name + " " + names[name])
-
-	print "fist 20 names of the list " 
+	print " "
+	print " fist 20 names of the list " 
 	for var in final_list[:10]:
 		print var
 
@@ -123,7 +122,7 @@ def main():
 	# the last argument should be the filename	
 	
 	#BILLIE_edit: create a second file for comparison
-	comparison = True	
+	comparison = True
 	
 	if summary: 
 		filename = args[1]	
@@ -136,6 +135,7 @@ def main():
 		# first check if there's a second file for comparison
 		# use an Exception Handle, because args[1] is empty -> index out of bounds
 		while comparison:
+			print "		~~ Try another year for comparisoni ~~			" 
 			try: 
 				file2 = args[1]
 				break
@@ -153,8 +153,9 @@ def main():
 			# check if any other flags possible
 	extract_names(filename)
 	sort_names(filename)
-	extract_names(file2)
-	sort_names(file2)
+	if comparison: 
+		extract_names(file2)
+		sort_names(file2)
 
 
   # For each filename, get the names, then either print the text output
