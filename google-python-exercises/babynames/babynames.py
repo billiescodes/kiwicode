@@ -90,7 +90,7 @@ def sort_names(text):
 		final_list.append(name + " " + names[name])
 
 	print "fist 20 names of the list " 
-	for var in final_list[:20]:
+	for var in final_list[:10]:
 		print var
 
 
@@ -121,14 +121,41 @@ def main():
 	# Parsing commandline arguments
 	# args is a list that contains all the command line arguments
 	# the last argument should be the filename	
-		
-	if summary: filename = args[1]	
-	else:	filename = args[0]
+	
+	#BILLIE_edit: create a second file for comparison
+	comparison = True	
+	
+	if summary: 
+		filename = args[1]	
+		#	if not args[2]: 
+		#	print "please input a second file for comparison" 
+		#	sys.exit(1)
+		#file2 = args[2]
+	
+	else:
+		# first check if there's a second file for comparison
+		# use an Exception Handle, because args[1] is empty -> index out of bounds
+		while comparison:
+			try: 
+				file2 = args[1]
+				break
+			except IndexError: 
+				print "please input a second file for comparison"
+				sys.exit(1)
+
+		#if not args[1]:
+		#	sys.exit(1)
+	
+		filename = args[0] 
+		#file2 = args[1]
 			# if flag --summaryfile given, file is second member in list	
 			# if flag --summaryfile not given, file is first in list args
 			# check if any other flags possible
 	extract_names(filename)
 	sort_names(filename)
+	extract_names(file2)
+	sort_names(file2)
+
 
   # For each filename, get the names, then either print the text output
   # or write it to a summary file
