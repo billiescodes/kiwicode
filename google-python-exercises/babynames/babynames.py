@@ -9,6 +9,12 @@
 import sys
 import re
 
+## CONTAINS functions
+# def extract_names(filename):
+# def sort_names(text):
+# def print_to_screen(text):
+# an added flag (not on commandline) for adding files to compare the first x names
+
 """Baby Names exercise
 
 Define the extract_names() function below and change main()
@@ -43,63 +49,65 @@ Given a file name for baby.html, returns a list starting with the year string
 
 def extract_names(filename):
 ## first extract the year of the file	
-	# open the file
+	# open the file and start a dictionary 
 	input_file = open(filename, 'r')
 	count = 1
-	# start a dictionary 
 	names = {}
-	
-	for line in input_file:
-	## Extract the year and print it 
-		
-		year = re.search(r'(Popularity in)(\s)(\d\d\d\d)', line)
-			# note: do not need : * or + between parantheses to connect brackets ()
-			# unless characters might repeat, like several spaces, then (\s*)m
 
-		if year : 
-			print year.group()
-			#print " and the year is: ", year.group(3)
+	# parse the file line by line
+	# Extract the year in html file; store in variable the_year if exists	
+	for line in input_file:
+		year = re.search(r'(Popularity in)(\s)(\d\d\d\d)', line)
+		if year: 
 			the_year = year.group(3)
+		
 	##  extract both male and female names
+	 # unpack the tuple, if boys/girls names not in dictionary names
+	 # add the name= key, and its rank= value to dict. names
 		names_by_rank = re.findall(r'<td>(\w+)</td><td>(\w+)</td><td>(\w+)', line)
 
 		for name in names_by_rank:
-			#unpack the tuple
 			(rank, boys, girls) = name
-			# if boys name is not in dictionary:
 			if boys not in names:
 				names[boys] = rank
 			if girls not in names:	
 				names[girls] = rank
-				# get every name, store as key and the rank as its value
-			
+		
+	# AFTER finished going through line by line, if no 	
+	# match is found, exit the file and print out error message
+	# I can't use if not year: here, but I can do an Exception handle
+	# CHECK: if variable the_year, (the extracted year), exists
+	try:
+	 the_year
+	except UnboundLocalError: 
+		sys.stderr.write(" No year! Try another file \n")
+		sys.exit(1)
 		#return 2 things: all the names, and the current year!!
 	return names,the_year
+ 
 
 def sort_names(text):
 	# this will print the names from the dictionary
-	(names,year) = extract_names(text)			# make call to extract_names: names refers to dict
+	# make call to extract_names: unpack dict= names and var=year 
+	# sort the dictionary into dict. names_ordered
+	(names,year) = extract_names(text)	
 	names_ordered = sorted(names.keys())
 	final_list = []
 	final_list.append(year)
-	print " ~~ the final_list is" , final_list, " ~~"
+	
+  # print name, names[name]
+  # create single string of name + rank and place into list. final_list
 	for name in names_ordered:
-	#	print name, names[name]
-		# create a single string of name + rank and place into list
 		final_list.append(name + " " + names[name])
-	print " "
-	print " fist 20 names of the list " 
+	return final_list
+
+def print_to_screen(text):
+	final_list = sort_names(text)
+	print " ~~ the final_list for year " , final_list[0], " ~~ \n"	
+	print " fist 10 names in final list " 
 	for var in final_list[:10]:
 		print var
-
-
-
-def Find(pat, text):
-	match =  re.search(pat, text)
-	if match: print match.group()
-	#else:	print " match not found" 
-
-
+	
 
 def main():
   # This command-line parsing code is provided.
@@ -122,44 +130,45 @@ def main():
 	# the last argument should be the filename	
 	
 	#BILLIE_edit: create a second file for comparison
+	# do this only if -summaryfile is off; make no sense otherwise
 	comparison = True
-	
+
 	if summary: 
-		filename = args[1]	
-		#	if not args[2]: 
-		#	print "please input a second file for comparison" 
-		#	sys.exit(1)
-		#file2 = args[2]
-	
+		# call to extract_names, make the list text, with \n 
+		filename = args[0]	
+		(names,year) = extract_names(filename)
+		names_sorted = sort_names(filename)
+
+		text = '\n'.join(names_sorted)
+		sumfile  = open(filename + '.summary', 'w')
+		sumfile.write(text + '\n')
+		sumfile.close()
+		
 	else:
 		# first check if there's a second file for comparison
 		# use an Exception Handle, because args[1] is empty -> index out of bounds
 		while comparison:
-			print "		~~ Try another year for comparisoni ~~			" 
 			try: 
 				file2 = args[1]
 				break
 			except IndexError: 
 				print "please input a second file for comparison"
 				sys.exit(1)
-
-		#if not args[1]:
-		#	sys.exit(1)
 	
 		filename = args[0] 
-		#file2 = args[1]
 			# if flag --summaryfile given, file is second member in list	
 			# if flag --summaryfile not given, file is first in list args
 			# check if any other flags possible
-	extract_names(filename)
-	sort_names(filename)
+		extract_names(filename)
+		sort_names(filename)
+		print_to_screen(filename)
+
 	if comparison: 
+		print "   ~~ Try another year for comparisoni ~~      "
 		extract_names(file2)
 		sort_names(file2)
+		print_to_screen(file2)
 
-
-  # For each filename, get the names, then either print the text output
-  # or write it to a summary file
   
 if __name__ == '__main__':
   main()	
