@@ -7,7 +7,8 @@ import math
 
 def merge(A, b, c, mid):
 	n1 = (mid+1)-b # midpoint(+1) - low index value 
-	n2 =  c+1 - mid # high- mid index
+	n2 = c - mid  # makes code run till the end but not right
+	#n2 =  c+1 - mid # high- mid index ### PROBLEM
 	tmp = []
 	print '****************##### START  ######: '
 	print 'b, c, mid', b, c, mid
@@ -29,26 +30,26 @@ def merge(A, b, c, mid):
 	# counters to go through array; i/j only go through half of array
 	i = 0 ; j = 0
  
-	print '2: enter mergesort', i , j , c
+#	print '2: enter mergesort', i , j , c
 #	print 'left array, ith elemnt before for loop:  ', Left[i]
 
 	### THIS IS THE PROBLEM: i/j run over the temp arrays L/R and
 	### mid and c are definite variables of total A
-	while i <= mid and j <= c:   
-		print '3: enter while loop ', 'i=',i,' j=', j, ' mid=',  mid, ' c=', c
+	while i < len(Left) and j < len(Right):   
+		print '3: enter while loop ', 'i=',i,' j=', j, ' lenL=',  len(Left), ' lenR=', len(Right)
 		# takes care of comparing L and R
-		print "Left[i] ", Left[i], " and Right[j] ", Right[j]
+		# WONT WORK IF INDEX OUT OF BOUNDS: print "Left[i] ", Left[i], " and Right[j] ", Right[j]
 		if Left[i] <= Right[j]:
 			tmp.append(Left[i])
 			i+=1
 			print '4: here', tmp, i
-			if i == mid:
+			if i == n1:
 				break; 
 		elif Left[i] > Right[j]: 	# the <= comparison takes care of itLeft[i] > Right[j]:
 			tmp.append(Right[j]) 
 			j+=1
 			#print '5: not here', tmp, j 
-			if j == c:
+			if j == n2:
 				break;
 	#print '6: does my brave code make it out here? ', i, j 
 	
@@ -68,16 +69,13 @@ def merge(A, b, c, mid):
 	z = 0
 	while b <=c:
 		A[b] = tmp[z]
-		print '8:  here?'
+		#print '8:  here?'
 		b += 1
 		z +=1
-		if c < 7:
-			print "LAST"
-		break 
-	print  '9: end of code, tmp, A:', tmp, A
+		#	print "LAST"
 	
+	print '9: end of code, tmp, A:', tmp, A
  
-    #break
 
 	#return tmp	
 	#if there are trailing elements e.g. (1 2 3 5) merge with (4 6 7 8)
@@ -104,8 +102,8 @@ def main():
 	if len(sys.argv)>= 2:
 		A = sys.argv[1]
 	else:
-		A = [ 2, 6, 5, 3, 4, 1]
-		
+		#A = [ 2, 6, 5, 3, 4, 1]
+		A = [ 2, 6, 5, 3, 4, 1,7,9,8,13,11,17]
 	low = 0
 	high = len(A)
 
