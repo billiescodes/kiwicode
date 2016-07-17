@@ -3,7 +3,7 @@
 # billiescodes 2016
 # Exercise 4: Divisors (FOCUS: as short as possible) 
 
-# with help of some other codes, try to write program 4 in as few lines as possible
+# write program 4 in as few lines as possible
 	# 1. envelope the entire thing in a while == True loop
 	# 2. write for-loop containing remainder-conditional in a list []
 	# 3. use the .format method on  print statement to print out the list 

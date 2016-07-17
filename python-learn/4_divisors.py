@@ -2,8 +2,6 @@
 
 # billiescodes 2016
 # Exercise 4: Divisors	(FOCUS: functions)
-	# a few alternates: NOT a billiescodes codes
-
 
 # 1. Create a program that asks the user for a number and then prints out a list of all the divisors of that number.
 		# 13 is a divisor of 26: 26/13 no remainder
