@@ -42,7 +42,7 @@ def main():
 	
 	test = True
 	if len(sys.argv) !=2: 
-		print 'usage is /.5b_ListOverlap_strings.py <file>'
+		print 'usage is /.5b_ListStrings.py <file>'
 		sys.exit(1)
 
 	print "\n \t\t\t ~ List overlap with Strings~ \n "
