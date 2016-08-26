@@ -20,7 +20,7 @@ def main():
 	print nu_list
 
 
-	print "\n now generate random list (for practice) 100 members" 
+	print "\n now generate random list (for practice) 100 elements" 
 	b = randgen(100)
 	print [ var for var in b if var%2==0] 
 
