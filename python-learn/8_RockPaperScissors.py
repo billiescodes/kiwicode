@@ -17,6 +17,8 @@ def main():
  
 	print "Your play choice is '{}' ".format(play)
 
+	#randomly generate choice decision for who wins 
+
 #End of file
 if __name__=='__main__':
 	main()
