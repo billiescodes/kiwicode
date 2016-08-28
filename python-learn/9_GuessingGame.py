@@ -6,7 +6,7 @@
 #tell them whether they guessed too low, too high, or exactly right
 
 import random
-
+import sys
 
 def main():
 
@@ -14,7 +14,7 @@ def main():
 
 	# Game Loop
 	while(True): 
-		print "the Random Number is between 1 and 9 (inclusive)"
+		print "the Random Number is between 1 and 9 (inclusive) type 'q' to exit"
 		guess = random.randrange(1,10)
 		counter=1	
 
@@ -26,7 +26,9 @@ def main():
 			# Input Loop
 			while(True):
 				try: 
-					usr_prompt = int(raw_input(prompt))
+					usr_prompt = raw_input(prompt)
+					if usr_prompt=='q': sys.exit('Goodbye!') 
+					usr_prompt=int(usr_prompt)
 					if usr_prompt not in range(1,10):
 						print "Please input a valid guess; numbers 1-9"
 						continue
@@ -49,10 +51,10 @@ def main():
 		print " \n You guessed {} times. Would you like to play again (y/n)?".format(counter) 
 		play_again= str(raw_input(prompt))
 		if play_again!='y' and play_again !='n': 
-			print "would you like to play again? (y/n)", play_again		
-		elif play_again=='y':
+			print "would you like to play again? (y/n)"	
+		elif play_again=='y' or play_again=='yes':
 			continue
-		elif play_again=='n': 
+		elif play_again=='n'or play_again=='no': 
 			break 
 
 	print " \n End of program" 
