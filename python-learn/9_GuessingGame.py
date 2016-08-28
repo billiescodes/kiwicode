@@ -48,14 +48,19 @@ def main():
 				print "your guess is too low; try again"
 				continue 
 		
-		print " \n You guessed {} times. Would you like to play again (y/n)?".format(counter) 
-		play_again= str(raw_input(prompt))
-		if play_again!='y' and play_again !='n': 
-			print "would you like to play again? (y/n)"	
-		elif play_again=='y' or play_again=='yes':
-			continue
-		elif play_again=='n'or play_again=='no': 
-			break 
+		print " \n Your guess took {} trials. Would you like to play again (y/n)?".format(counter) 
+		
+		# Play Again loop
+		while(True):
+			play_again= str(raw_input(prompt))
+			if play_again!='y' and play_again !='n': 
+				print "would you like to play again? (y/n)"	
+				continue
+			elif play_again=='y':
+				break
+			elif play_again=='n': 
+				sys.exit('Goodbye!')
+
 
 	print " \n End of program" 
 #End of File Stuff
