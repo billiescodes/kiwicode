@@ -27,14 +27,13 @@ def main():
 			while(True):
 				try: 
 					usr_prompt = int(raw_input(prompt))
+					if usr_prompt not in range(1,10):
+						print "Please input a valid guess; numbers 1-9"
+						continue
 					break
 				except ValueError: 
-					print ("Ooos! Not a valid number. Try again; numbers 1-9" )
- 
-			if usr_prompt not in range(1,10):
-				print "please input a valid guess; numbers 1-9 "
-				continue		
-
+					print ("Ooos! Not a valid number.\n Please input a valid guess; numbers 1-9" )
+		 
 			if usr_prompt==guess: 
 				print "congrats! you've guessed the number: ", guess
 				break
