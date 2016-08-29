@@ -8,7 +8,6 @@
 ### function checks if input is prime
 def checkprime(num):
 	nu=[]
-	#put divisors in list nu90
 	for i in range(1,num+1):
 		if num%i ==0: nu.append(i)	
 	print "divisors: ", nu
@@ -24,18 +23,15 @@ def main():
 		if inpt == 'none': continue
 		else: break
 
-	print "input is:", inpt
 	check =checkprime(inpt)
-	if check == 'prime': print "the number is prime"
+	if check == 'prime': print "the number is a prime"
 	else: print "not a prime" 
 
 
 
 ### function checks input as integer
 def checknum():
-	print "please input a number, (floats will be rounded up or down)" 
-	prompt='>'
-	inpt = raw_input(prompt)
+	inpt = raw_input("please input a number, (floats will be rounded up or down) \n",)
 	try:
 		inpt=int(round(float(inpt)))		#will convert floats to ints as well
 		return inpt
