@@ -9,7 +9,7 @@
 def split_n_reverse(mystring):
 	teststring=mystring.split(" ")
 	tmp = [a for a in reversed(teststring) ]
-	result = " ".join(tmplist)
+	result = " ".join(tmp)
 	return result
 
 
