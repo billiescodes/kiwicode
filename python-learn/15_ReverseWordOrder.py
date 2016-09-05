@@ -7,12 +7,8 @@
 
 
 def split_n_reverse(mystring):
-	tmp=[]
-	#create list of severa
 	teststring=mystring.split(" ")
-	#NOTE for loop in reversed order 
-	for a in reversed(teststring):
-		tmp.append(a)
+	tmp = [a for a in reversed(teststring) ]
 
 	return tmp
 
