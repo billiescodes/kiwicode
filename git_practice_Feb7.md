@@ -7,3 +7,8 @@ WHERE Categories.CategoryID = Products.CategoryID
 GROUP BY CategoryName
 ORDER BY count(categoryname) DESC;
 '''
+
+Which customers are from the UK?
+>>> SELECT Country, COUNT(*) 
+FROM [Customers]
+WHERE Country='UK'
