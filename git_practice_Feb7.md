@@ -10,7 +10,8 @@ ORDER BY count(categoryname) DESC;
 
 Which customers are from the UK?
 
-```sql SELECT Country, COUNT(*) 
+```sql 
+SELECT Country, COUNT(*) 
 FROM [Customers]
 WHERE Country='UK'
 ```
@@ -18,21 +19,13 @@ ANSWER=7
 
 What is the name of the customer who has the most orders?
 ```sql
-SELECT CustomerID,  COUNT(CustomerID)
-FROM Orders, Customers
-WHERE Customers.CustomerID = Orders.CustomerID
-GROUP BY CustomerID
-ORDER BY COUNT(CustomerID) DESC;
-
-or:
-SELECT  COUNT(Orders.CustomerID),Customers.CustomerID
-FROM Orders
-LEFT JOIN Customers
+SELECT  CustomerName, count(*) as orders 
+FROM Customers join orders
 ON Customers.CustomerID = Orders.CustomerID
-GROUP BY CustomerID
-ORDER BY COUNT(CustomerID) DESC;
+GROUP BY 1
+ORDER BY 2  DESC;
 ```
-??
+ANSWER = Ernest Handle
 
 Which supplier has the highest average product price?
 ```sql
@@ -44,14 +37,14 @@ GROUP BY Price
 ORDER BY AvgPrice DESC;
 	
 ```
-ANSWER = Aux joyeux ecclésiastiques
+ANSWER = Aux joyeux ecclésiastiques 
 
 
 
 
 How many different countries are all the customers from?
 ```sql
-SELECT DISTINCT Country 
+SELECT count(DISTINCT Country)  
 FROM [Customers]
 ```
 ANSWER = 21
