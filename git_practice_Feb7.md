@@ -23,3 +23,15 @@ GROUP BY CustomerID
 ORDER BY COUNT(CustomerID) DESC;
 ```
 ??
+
+Which supplier has the highest average product price?
+```sql
+SELECT Suppliers.SupplierName, Suppliers.SupplierID, Products.SupplierID, AVG(Products.Price) AS AvgPrice
+FROM Products 
+LEFT JOIN Suppliers
+ON Suppliers.SupplierID = Products.SupplierID
+GROUP BY Price
+ORDER BY AvgPrice DESC;
+	
+```
+ANSWER = Aux joyeux ecclésiastiques
