@@ -52,3 +52,8 @@ ANSWER = 21
 What category appears in the most orders?
 
 
+7. What was the total cost for each order?
+8. Which employee made the most sales (by total cost)?
+9. Which employees have BS degrees? (Hint: look at the LIKE operator.)
+10. Which supplier of three or more products has the highest average product price? (Hint: look at the HAVING operator.)
+
