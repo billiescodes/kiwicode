@@ -12,3 +12,14 @@ Which customers are from the UK?
 >>> SELECT Country, COUNT(*) 
 FROM [Customers]
 WHERE Country='UK'
+
+
+What is the name of the customer who has the most orders?
+''' 
+SELECT CustomerID,  COUNT(CustomerID)
+FROM Orders, Customers
+WHERE Customers.CustomerID = Orders.CustomerID
+GROUP BY CustomerID
+ORDER BY COUNT(CustomerID) DESC;
+'''
+??
