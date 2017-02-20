@@ -88,7 +88,9 @@ Order BY Sum(Price)
 ```sql
 SELECT LastName, FirstName
 FROM [Employees]
-WHERE NOTES LIKE '%BS% ```
+WHERE NOTES LIKE '%BS%  
+```
+
 
 9. Which supplier of three or more products has the highest average product price? (*Hint:* look at the [HAVING](http://www.w3schools.com/sql/sql_having.asp) operator.)
 
