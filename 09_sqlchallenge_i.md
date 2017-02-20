@@ -85,5 +85,18 @@ Order BY Sum(Price)
 
 
 8. Which employees have BS degrees? (*Hint:* look at the [LIKE](http://www.w3schools.com/sql/sql_like.asp) operator.)
+```sql
+SELECT LastName, FirstName
+FROM [Employees]
+WHERE NOTES LIKE '%BS% ```
 
 9. Which supplier of three or more products has the highest average product price? (*Hint:* look at the [HAVING](http://www.w3schools.com/sql/sql_having.asp) operator.)
+
+[supplier] -- 	SupplierID -- [Product]
+
+SELECT Products.ProductID, Suppliers.SupplierName
+FROM Products
+LEFT JOIN Suppliers ON Products.SupplierID=Suppliers.SupplierID
+Group By SupplierName
+HAVING Sum(DISTINCT ProductID) 
+
