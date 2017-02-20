@@ -96,9 +96,11 @@ WHERE NOTES LIKE '%BS%
 
 [supplier] -- 	SupplierID -- [Product]
 
-SELECT Products.ProductID, Suppliers.SupplierName
+```sql
+SELECT Products.ProductID, Suppliers.SupplierName, AVG(Products.Price) as AvgPrice
 FROM Products
 LEFT JOIN Suppliers ON Products.SupplierID=Suppliers.SupplierID
 Group By SupplierName
-HAVING Sum(DISTINCT ProductID) 
-
+HAVING Sum(DISTINCT ProductID)  > 2
+ORDER BY AvgPrice DESC
+```
